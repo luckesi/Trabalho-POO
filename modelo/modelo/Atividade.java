@@ -98,4 +98,32 @@ public abstract class Atividade {
     public Set<Participante> getParticipantesInscritos() {
         return new HashSet<>(participantesInscritos);
     }
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public void setTitulo(String titulo) {
+		if(titulo == null || titulo.trim().isEmpty()) {
+			throw new IllegalArgumentException("O tituli nao pode ser vazio");
+		}
+		this.titulo=titulo;
+	}
+
+	public void setCargaHoraria(int cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+
+	public void setCapacidadeMaxima(int capacidadeMaxima) {
+		this.capacidadeMaxima = capacidadeMaxima;
+	}
+
+	public void setPalestrante(Palestrante palestrante) {
+		this.palestrante = palestrante;
+	}
+
+	public void setParticipantesInscritos(Set<Participante> participantesInscritos) {
+		this.participantesInscritos = participantesInscritos;
+	}
+    
 }
