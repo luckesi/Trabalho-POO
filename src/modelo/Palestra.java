@@ -2,9 +2,6 @@ package modelo;
 
 public class Palestra extends Atividade {
 
-    // Sem atributos específicos
-
-    // Construtor
 
     public Palestra(
         String codigo,

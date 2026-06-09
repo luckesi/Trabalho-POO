@@ -15,7 +15,7 @@ public class Participante extends Pessoa{
 	private ArrayList<Atividade> atividadesFrequentadas;
 	
 	//Construtor
-	public Participante(String cpf, String nome, String email, LocalDate dataNascimento, String matricula,
+	public Participante(String cpf, String nome, String email, String dataNascimento, String matricula,
 			Participante.Tipo tipo) {
 		super(cpf, nome, email, dataNascimento);
 		this.setMatricula(matricula);

@@ -95,6 +95,37 @@ public class SistemaEventos{
 	return true;
 	}
 	public double calcularFaturamentoTotal() {
-		
+		double total=0;
+		for(Atividade at :atividades) {
+			total+=at.calcularCusto()*at.getNumeroParticipantesInscritos();
+		}
+		return total;
 	}
+	public void listarAtividades() {
+		for (Atividade atividade : atividades) {
+			System.out.println("ATIVIDADE: "+atividade.getTitulo()+" TIPO: "+atividade.obterTipoAtividade()+" VAGAS: "+atividade.getCapacidadeMaxima()+" OCUPACAO: "+atividade.getNumeroParticipantesInscritos());
+		}
+	}
+	
+	public String obterAtividadeMaiorOcupacao() {
+		Atividade at = atividades.get(0);
+		for (Atividade atividade : atividades) {
+			if(atividade.getNumeroParticipantesInscritos()>at.getNumeroParticipantesInscritos()) {
+				at=atividade;
+			}
+		}
+		return "Atividade com maior ocupacao "+at.getTitulo()+" TIPO:"+at.obterTipoAtividade()+" OCUPACAO: "+at.getParticipantesInscritos();
+	}
+	public String obterAtividadeMenorOcupacao() {
+		Atividade at = atividades.get(0);
+		for (Atividade atividade : atividades) {
+			if(atividade.getNumeroParticipantesInscritos()<at.getNumeroParticipantesInscritos()) {
+				at=atividade;
+			}
+		}
+		return "Atividade com menor ocupacao "+at.getTitulo()+" TIPO:"+at.obterTipoAtividade()+" OCUPACAO: "+at.getParticipantesInscritos();
+	}
+	
+	
+	
 }

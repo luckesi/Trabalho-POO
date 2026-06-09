@@ -1,6 +1,8 @@
 package modelo;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 
 public abstract class Pessoa {
 
@@ -51,15 +53,18 @@ public abstract class Pessoa {
 		}
 		this.email = email;
 	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		if (dataNascimento == null) {
+	//O metodo recebe uma String e converte para DateTime
+	public void setDataNascimento(String ddMMaaaa) {
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("ddMMyyyy");
+		
+		if (ddMMaaaa == null) {
 			throw new IllegalArgumentException("Data de nascimento inválida.");
 		}
-		if (dataNascimento.isAfter(LocalDate.now())) {
+		LocalDate dataConvertida =LocalDate.parse(ddMMaaaa,formatador );
+		if (dataConvertida.isAfter(LocalDate.now())) {
 			throw new IllegalArgumentException("Data de nascimento não pode ser no futuro.");
 		}
-		this.dataNascimento = dataNascimento;
+		this.dataNascimento =dataConvertida ;
 	}
 
 	// Método abstrato
@@ -74,10 +79,12 @@ public abstract class Pessoa {
 
 	// Construtores
 
-	public Pessoa(String cpf, String nome, String email, LocalDate dataNascimento) {
+	public Pessoa(String cpf, String nome, String email, String dataNascimento) {
 		this.setCpf(cpf);
 		this.setNome(nome);
 		this.setEmail(email);
 		this.setDataNascimento(dataNascimento);
 	}
+
+	
 }

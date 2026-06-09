@@ -7,7 +7,7 @@ public class Palestrante extends Pessoa {
 	private String titulacao;
 	private String areaEspecializacao;
 
-	public Palestrante(String cpf, String nome, String email, LocalDate dataNascimento, String titulação,
+	public Palestrante(String cpf, String nome, String email, String dataNascimento, String titulação,
 			String areaEspecializacao) {
 		super(cpf, nome, email, dataNascimento);
 		this.titulacao = titulação;
