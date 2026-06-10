@@ -8,29 +8,38 @@ import java.util.Map;
 import modelo.*;
 
 public class SistemaEventos{
+
+	// Atributos
+
 	private String nomeEvento;
 	private Map<String, Participante> participantesPorMatricula;
 	private Map<String, Palestrante> palestrantesPorCpf;
 	private List<Atividade> atividades;
 	private String[] diasFuncionamento;
-	public SistemaEventos(String nomeEvento) {
-	this.nomeEvento = nomeEvento;
-	this.participantesPorMatricula = new HashMap<>();
-	this.palestrantesPorCpf = new HashMap<>();
-	this.atividades = new ArrayList<>();
-	this.diasFuncionamento = new String[7];
-	inicializarDias();
-	}
-	private void inicializarDias() {
-	diasFuncionamento[0] = "Segunda-feira";
-	diasFuncionamento[1] = "Terça-feira";
-	diasFuncionamento[2] = "Quarta-feira";
-	diasFuncionamento[3] = "Quinta-feira";
-	diasFuncionamento[4] = "Sexta-feira";
-	diasFuncionamento[5] = "Sabado";
-	diasFuncionamento[6] = "Domingo";
+
+	/// Construtor
 	
+	public SistemaEventos(String nomeEvento) {
+		this.setNomeEvento(nomeEvento);
+		this.participantesPorMatricula = new HashMap<>();
+		this.palestrantesPorCpf = new HashMap<>();
+		this.atividades = new ArrayList<>();
+		this.diasFuncionamento = new String[7];
+		inicializarDias();
 	}
+
+	// Métodos
+
+	private void inicializarDias() {
+		diasFuncionamento[0] = "Segunda-feira";
+		diasFuncionamento[1] = "Terça-feira";
+		diasFuncionamento[2] = "Quarta-feira";
+		diasFuncionamento[3] = "Quinta-feira";
+		diasFuncionamento[4] = "Sexta-feira";
+		diasFuncionamento[5] = "Sabado";
+		diasFuncionamento[6] = "Domingo";
+	}
+
 	public boolean cadastrarParticipante(Participante participante) {
 		if(participantesPorMatricula.containsKey(participante.getMatricula())) {
 			return false;
@@ -38,7 +47,6 @@ public class SistemaEventos{
 			participantesPorMatricula.put(participante.getMatricula(), participante);
 			return true;
 		}
-		
 	}
 	
 	public boolean cadastrarPalestrante(Palestrante palestrante) {
@@ -48,7 +56,6 @@ public class SistemaEventos{
 			palestrantesPorCpf.put(palestrante.getCpf(), palestrante);
 			return true;
 		}
-		
 	}
 	
 	public Participante buscarParticipantePorMatricula(String matricula) {
@@ -86,14 +93,15 @@ public class SistemaEventos{
 	}
 	
 	public boolean cadastrarAtividade(Atividade atividade) {
-	for (Atividade a : atividades) {
-	if (a.getCodigo().equals(atividade.getCodigo())) {
-	return false;
+		for (Atividade a : atividades) {
+			if (a.getCodigo().equals(atividade.getCodigo())) {
+				return false;
+			}
+		}
+		atividades.add(atividade);
+		return true;
 	}
-	}
-	atividades.add(atividade);
-	return true;
-	}
+
 	public double calcularFaturamentoTotal() {
 		double total=0;
 		for(Atividade at :atividades) {
@@ -101,30 +109,53 @@ public class SistemaEventos{
 		}
 		return total;
 	}
+
 	public void listarAtividades() {
 		for (Atividade atividade : atividades) {
 			System.out.println("ATIVIDADE: "+atividade.getTitulo()+" TIPO: "+atividade.obterTipoAtividade()+" VAGAS: "+atividade.getCapacidadeMaxima()+" OCUPACAO: "+atividade.getNumeroParticipantesInscritos());
 		}
 	}
-	
+
+
 	public String obterAtividadeMaiorOcupacao() {
+		if (atividades.isEmpty()) return "Nenhuma atividade cadastrada";
 		Atividade at = atividades.get(0);
 		for (Atividade atividade : atividades) {
-			if(atividade.getNumeroParticipantesInscritos()>at.getNumeroParticipantesInscritos()) {
-				at=atividade;
+			if(atividade.getNumeroParticipantesInscritos() > at.getNumeroParticipantesInscritos()) {
+				at = atividade;
 			}
 		}
-		return "Atividade com maior ocupacao "+at.getTitulo()+" TIPO:"+at.obterTipoAtividade()+" OCUPACAO: "+at.getParticipantesInscritos();
+		return "Atividade com maior ocupacao " + at.getTitulo() + " TIPO:" + at.obterTipoAtividade() + " OCUPACAO: " + at.getParticipantesInscritos();
 	}
+
 	public String obterAtividadeMenorOcupacao() {
+		if (atividades.isEmpty()) return "Nenhuma atividade cadastrada";
 		Atividade at = atividades.get(0);
 		for (Atividade atividade : atividades) {
-			if(atividade.getNumeroParticipantesInscritos()<at.getNumeroParticipantesInscritos()) {
-				at=atividade;
+			if(atividade.getNumeroParticipantesInscritos() < at.getNumeroParticipantesInscritos()) {
+				at = atividade;
 			}
 		}
-		return "Atividade com menor ocupacao "+at.getTitulo()+" TIPO:"+at.obterTipoAtividade()+" OCUPACAO: "+at.getParticipantesInscritos();
+		return "Atividade com menor ocupacao " + at.getTitulo() + " TIPO:" + at.obterTipoAtividade() + " OCUPACAO: " + at.getParticipantesInscritos();
 	}
+
+	// Getters
+
+	public String getNomeEvento(){
+		return nomeEvento;
+	}
+
+	// Setters
+
+	public void setNomeEvento(String nomeEvento){
+		if (nomeEvento == null || nomeEvento.trim().isEmpty()){
+			throw new IllegalArgumentException("Nome inválido");
+		}
+		this.nomeEvento = nomeEvento;
+		
+	}
+
+	
 	
 	
 	

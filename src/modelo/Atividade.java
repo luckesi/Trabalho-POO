@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public abstract class Atividade {
@@ -17,32 +16,12 @@ public abstract class Atividade {
 
     // Construtor
 
-    public Atividade(
-        String codigo,
-        String titulo,
-        int cargaHoraria,
-        int capacidadeMaxima,
-        Palestrante palestrante
-    ) {
-        if (codigo == null || codigo.trim().isEmpty()) {
-            throw new IllegalArgumentException("Código não pode ser nulo");
-        }
-        if (cargaHoraria <= 0) {
-            throw new IllegalArgumentException(
-                "Carga horária deve ser maior que zero"
-            );
-        }
-        if (capacidadeMaxima <= 0) {
-            throw new IllegalArgumentException(
-                "Capacidade máxima deve ser maior que zero"
-            );
-        }
-
-        this.codigo = codigo.trim();
-        this.titulo = titulo.trim();
-        this.cargaHoraria = cargaHoraria;
-        this.capacidadeMaxima = capacidadeMaxima;
-        this.palestrante = palestrante;
+    public Atividade(String codigo, String titulo, int cargaHoraria, int capacidadeMaxima, Palestrante palestrante){
+        this.setCodigo(codigo);
+        this.setTitulo(titulo);
+        this.setCargaHoraria(cargaHoraria);
+        this.setCapacidadeMaxima(capacidadeMaxima);
+        this.setPalestrante(palestrante);
         this.participantesInscritos = new HashSet<>();
     }
 
@@ -99,8 +78,13 @@ public abstract class Atividade {
         return new HashSet<>(participantesInscritos);
     }
 
+    // Setters
+
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		if (codigo == null || codigo.trim().isEmpty()) {
+                throw new IllegalArgumentException("Código não pode ser nulo");
+            }
+        this.codigo = codigo.trim();
 	}
 
 	public void setTitulo(String titulo) {
@@ -111,19 +95,28 @@ public abstract class Atividade {
 	}
 
 	public void setCargaHoraria(int cargaHoraria) {
+        if (cargaHoraria <= 0) {
+                throw new IllegalArgumentException("Carga horária deve ser maior que zero");
+            }
 		this.cargaHoraria = cargaHoraria;
 	}
 
 	public void setCapacidadeMaxima(int capacidadeMaxima) {
+        if (capacidadeMaxima <= 0) {
+                throw new IllegalArgumentException("Capacidade máxima deve ser maior que zero");
+            }
 		this.capacidadeMaxima = capacidadeMaxima;
 	}
 
 	public void setPalestrante(Palestrante palestrante) {
-		this.palestrante = palestrante;
-	}
+        if (palestrante == null) {
+            throw new IllegalArgumentException("Palestrante não pode ser nulo");
+        }
+        this.palestrante = palestrante;
+    }
 
 	public void setParticipantesInscritos(Set<Participante> participantesInscritos) {
 		this.participantesInscritos = participantesInscritos;
 	}
-    
+
 }

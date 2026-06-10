@@ -1,27 +1,38 @@
-//Palestrante
-//└── atributos: titulacao, areaEspecializacao
 package modelo;
-import java.time.LocalDate;
 
 public class Palestrante extends Pessoa {
+
+	// Atributos
+
 	private String titulacao;
 	private String areaEspecializacao;
 
-	public Palestrante(String cpf, String nome, String email, String dataNascimento, String titulação,
-			String areaEspecializacao) {
+	// Construtor
+
+	public Palestrante(String cpf, String nome, String email, String dataNascimento, String titulação, String areaEspecializacao) {
 		super(cpf, nome, email, dataNascimento);
-		this.titulacao = titulação;
-		this.areaEspecializacao = areaEspecializacao;
+		this.setTitulacao(titulação);
+		this.setAreaEspecializacao(areaEspecializacao);
 	}
+
+	// Método concreto com polimorfismo
 
 	@Override
 	public String obterTipoPessoa() {
 		return "Palestrante: "+titulacao;
 	}
 
-	public String getTitulação() {
+	// Getters
+
+	public String getTitulacao() {
 		return titulacao;
 	}
+
+	public String getAreaEspecializacao() {
+		return areaEspecializacao;
+	}
+
+	// Setters
 
 	public void setTitulacao(String titulacao) {
 		if(titulacao == null || titulacao.trim().isEmpty() ) {
@@ -30,16 +41,11 @@ public class Palestrante extends Pessoa {
 		this.titulacao = titulacao.trim();
 	}
 
-	public String getAreaEspecializacao() {
-		return areaEspecializacao;
-	}
-
 	public void setAreaEspecializacao(String areaEspecializacao) {
 		if(areaEspecializacao == null || areaEspecializacao.trim().isEmpty() ) {
 			throw new IllegalArgumentException("A area de especializacao nao pode ser vazia");
 		}
-		this.areaEspecializacao = areaEspecializacao;
+		this.areaEspecializacao = areaEspecializacao.trim();
 	}
-	
 
 }

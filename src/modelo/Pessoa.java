@@ -13,6 +13,25 @@ public abstract class Pessoa {
 	private String email;
 	private LocalDate dataNascimento;
 
+	// Construtor
+
+	public Pessoa(String cpf, String nome, String email, String dataNascimento) {
+		this.setCpf(cpf);
+		this.setNome(nome);
+		this.setEmail(email);
+		this.setDataNascimento(dataNascimento);
+	}
+
+	// Método abstrato
+
+	public abstract String obterTipoPessoa();
+
+	// Método concreto
+
+	public int calcularIdade() {
+		return Period.between(dataNascimento, LocalDate.now()).getYears();
+	}
+
 	// Getters
 
 	public String getCpf() {
@@ -67,24 +86,6 @@ public abstract class Pessoa {
 		this.dataNascimento =dataConvertida ;
 	}
 
-	// Método abstrato
-
-	public abstract String obterTipoPessoa();
-
-	// Método concreto
-
-	public int calcularIdade() {
-		return Period.between(dataNascimento, LocalDate.now()).getYears();
-	}
-
-	// Construtores
-
-	public Pessoa(String cpf, String nome, String email, String dataNascimento) {
-		this.setCpf(cpf);
-		this.setNome(nome);
-		this.setEmail(email);
-		this.setDataNascimento(dataNascimento);
-	}
-
 	
+
 }
